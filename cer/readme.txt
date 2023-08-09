@@ -1,0 +1,2 @@
+更換reference_file_path和test_file_path，且須為csv檔
+cer為計算漢字結果的程式，有參考檔案和espnet的結果在旁對照
