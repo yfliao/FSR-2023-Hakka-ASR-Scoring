@@ -2,7 +2,7 @@
 ```
 python wer.py
 ```
-2.  若要得到更詳細的插入、刪除、取代錯誤以利後續調整，請先用seperate.py重新格式化text.csv和ref.csv，產生句對句對齊後ref.txt與text.txt，再用wer程式計算插入、刪除、取代錯誤。
+2.  若要得到更詳細的插入、刪除、取代錯誤以利後續調整，請先用seperate.py重新格式化text.csv和ref.csv，產生句對句對齊後ref.txt與text.txt，再用安裝好的wer指令計算插入、刪除、取代錯誤。
 ```
 pyhton seperate.py
 pip install asr-evaluation
