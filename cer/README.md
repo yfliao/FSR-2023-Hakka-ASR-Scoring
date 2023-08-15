@@ -3,6 +3,10 @@
 ```
 python cer.py
 ```
+如果算cer時想先移除測試檔內的空格再算cer可以使用cer_remove_space.py
+```
+python cer_remove_space.py
+```
 2.  若要得到更詳細的插入、刪除、取代錯誤以利後續調整，請先用seperate.py重新格式化text.csv和ref.csv，產生句對句對齊後ref.txt與text.txt（格式為 Sent. ID, transcription。要對齊句子順序），再用安裝好的wer指令計算插入、刪除、取代錯誤。
 ```
 python seperate.py
