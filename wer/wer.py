@@ -25,8 +25,8 @@ def word_error_rate(reference, hypothesis):
     return wer
 
 def sentence_error_rate(reference, hypothesis):
-    ref_sentences = reference.split(".")
-    hyp_sentences = hypothesis.split(".")
+    ref_sentences = reference.split("\n")
+    hyp_sentences = hypothesis.split("\n")
 
     ref_sentences = [sent.strip() for sent in ref_sentences if sent.strip()]
     hyp_sentences = [sent.strip() for sent in hyp_sentences if sent.strip()]
