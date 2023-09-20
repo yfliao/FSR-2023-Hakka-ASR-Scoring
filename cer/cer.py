@@ -44,7 +44,7 @@ def sentence_error_rate(reference, hypothesis):
     return ser
 
 # 測試檔案
-test_file_path = "hack.csv"
+test_file_path = "text.csv"
 
 # 編號在第一行，文本在第二行
 with open(test_file_path, "r", encoding="utf-8") as file:
