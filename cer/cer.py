@@ -44,7 +44,7 @@ def sentence_error_rate(reference, hypothesis):
     return ser
 
 # 測試檔案
-test_file_path = "text.csv"
+test_file_path = "hack.csv"
 
 # 編號在第一行，文本在第二行
 with open(test_file_path, "r", encoding="utf-8") as file:
@@ -52,22 +52,30 @@ with open(test_file_path, "r", encoding="utf-8") as file:
 
 # 測試資料分成編號和文本
 test_data = {}
+
+# 強制寫入所有 utterance 至 dict
+for line in ref_lines:
+    line = line.strip().split(",")
+    test_data[line[0]] = ''
+
+# 將對應 utterance 取代為輸入檔案
 for line in lines:
     line = line.strip().split(",")
-    if len(line) == 2:
-        test_data[line[0]] = line[1]
+    #if len(line) == 2:
+    test_data[line[0]] = line[1]
 
 # 計算CER和SER並輸出結果
+
 total_cer = 0
 total_ser = 0
 for num, text in test_data.items():
-    if num in reference_data:
-        reference_text = reference_data[num]
-        cer = character_error_rate(reference_text, text)
-        ser = sentence_error_rate(reference_text, text)
-        print(f"編號 {num} 的CER： {cer:.4f}, SER: {ser:.4f}")
-        total_cer += cer
-        total_ser += ser
+    #if num in reference_data:
+    reference_text = reference_data[num]
+    cer = character_error_rate(reference_text, text)
+    ser = sentence_error_rate(reference_text, text)
+    print(f"編號 {num} 的CER： {cer:.4f}, SER: {ser:.4f}")
+    total_cer += cer
+    total_ser += ser
 
 average_cer = total_cer / len(test_data)
 average_ser = total_ser / len(test_data)

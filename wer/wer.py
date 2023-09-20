@@ -49,11 +49,19 @@ test_file_path = "text.csv"
 with open(test_file_path, "r", encoding="utf-8") as file:
     lines = file.readlines()
 
+# 測試資料分成編號和文本
 test_data = {}
+
+# 強制寫入所有 utterance 至 dict
+for line in ref_lines:
+    line = line.strip().split(",")
+    test_data[line[0]] = ''
+
+# 將對應 utterance 取代為輸入檔案
 for line in lines:
     line = line.strip().split(",")
-    if len(line) == 2:
-        test_data[line[0]] = line[1]
+    #if len(line) == 2:
+    test_data[line[0]] = line[1]
 
 
 # 計算WER和SER並輸出結果
