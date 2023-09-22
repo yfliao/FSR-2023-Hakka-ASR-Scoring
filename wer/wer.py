@@ -1,7 +1,10 @@
 import nltk
 
 # 編號在第一行，文本在第二行
-reference_file_path = "hakka_transcript.csv"
+#reference_file_path = "hakka_transcript.csv"
+reference_file_path = "ref.csv"
+
+total_ref_word = 0
 
 with open(reference_file_path, "r", encoding="utf-8") as file:
     ref_lines = file.readlines()
@@ -10,8 +13,8 @@ with open(reference_file_path, "r", encoding="utf-8") as file:
 reference_data = {}
 for line in ref_lines:
     line = line.strip().split(",")
-    if len(line) == 2:
-        reference_data[line[0]] = line[1]
+    reference_data[line[0]] = line[1]
+    total_ref_word += len(line[1].split(" "))
 
 def word_error_rate(reference, hypothesis):
     ref_words = reference.split()
@@ -20,7 +23,7 @@ def word_error_rate(reference, hypothesis):
     edit_distance = nltk.edit_distance(ref_words, hyp_words)
     len_ref = len(ref_words)
 
-    wer = float(edit_distance) / len_ref
+    wer = float(edit_distance)
 
     return wer
 
@@ -65,6 +68,9 @@ for line in lines:
 
 
 # 計算WER和SER並輸出結果
+
+print(len(reference_data), len(test_data), total_ref_word)
+
 total_wer = 0
 total_ser = 0
 for num, text in test_data.items():
@@ -76,8 +82,8 @@ for num, text in test_data.items():
         total_wer += wer
         total_ser += ser
 
-average_wer = total_wer / len(test_data)
-average_ser = total_ser / len(test_data)
+average_wer = total_wer / float(total_ref_word)
+average_ser = total_ser / len(reference_data)
 print(f"平均WER： {average_wer:.4f}")
 print(f"平均SER： {average_ser:.4f}")
 

@@ -1,7 +1,10 @@
 import nltk
 
 # 編號在第一行，文本在第二行
-reference_file_path = "aishell_transcript_v0.8.csv"
+# reference_file_path = "aishell_transcript_v0.8.csv"
+reference_file_path = "ref.csv"
+
+total_ref_char = 0
 
 with open(reference_file_path, "r", encoding="utf-8") as file:
     ref_lines = file.readlines()
@@ -10,8 +13,8 @@ with open(reference_file_path, "r", encoding="utf-8") as file:
 reference_data = {}
 for line in ref_lines:
     line = line.strip().split(",")
-    if len(line) == 2:
-        reference_data[line[0]] = line[1]
+    reference_data[line[0]] = line[1]
+    total_ref_char += len(line[1])
 
 def character_error_rate(reference, hypothesis):
     ref_chars = list(reference)
@@ -21,7 +24,7 @@ def character_error_rate(reference, hypothesis):
     len_ref = len(ref_chars)
 
     # 計算CER
-    cer = float(edit_distance) / len_ref
+    cer = float(edit_distance)
 
     return cer
 
@@ -66,6 +69,8 @@ for line in lines:
 
 # 計算CER和SER並輸出結果
 
+print(len(reference_data), len(test_data), total_ref_char)
+
 total_cer = 0
 total_ser = 0
 for num, text in test_data.items():
@@ -77,7 +82,7 @@ for num, text in test_data.items():
     total_cer += cer
     total_ser += ser
 
-average_cer = total_cer / len(test_data)
-average_ser = total_ser / len(test_data)
+average_cer = total_cer / float(total_ref_char)
+average_ser = total_ser / len(reference_data)
 print(f"平均CER： {average_cer:.4f}")
 print(f"平均SER： {average_ser:.4f}")
